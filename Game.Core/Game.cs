@@ -72,17 +72,19 @@ namespace Game.Core
                     Cell cell = map.GetCell(y, x);
                     IDrawable drawable = cell;
 
-                    foreach (var creature in map.Creatures)
-                    {
-                        if(creature.Cell == cell)
-                        {
-                            drawable = creature;
-                            break;
-                        }
-                    }
+                    drawable = map.Creatures.CreatureAtExtension(cell) ?? cell;
+
+                    //foreach (var creature in map.Creatures)
+                    //{
+                    //    if(creature.Cell == cell)
+                    //    {
+                    //        drawable = creature;
+                    //        break;
+                    //    }
+                    //}
 
                     Console.ForegroundColor = drawable?.Color ?? ConsoleColor.White;
-                    Console.Write(drawable.Symbol);
+                    Console.Write(drawable?.Symbol);
                 }
                 Console.WriteLine();
             }
