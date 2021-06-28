@@ -24,23 +24,21 @@ namespace Game.Core
             {
                 for (int x = 0; x < width; x++)
                 {
-                    cells[y, x] = new Cell();
+                    cells[y, x] = new Cell(y, x);
                 }
             }
         }
 
         internal Cell GetCell(int y, int x)
         {
-            //ToDo: Fix!!!!!
-            try
+            //return x < 0 || x >= Width || y < 0 || y >= Height ? null : cells[y, x];
+
+            if (x < 0 || x >= Width || y < 0 || y >= Height)
             {
-                return cells[y, x];
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
                 return null;
             }
+
+            return cells[y, x];
         }
     }
 }

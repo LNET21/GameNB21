@@ -6,7 +6,7 @@ namespace Game.Core
     {
         public string Symbol { get; set; }
         public ConsoleColor Color { get; set; } = ConsoleColor.Green;
-        public Cell Cell { get; }
+        public Cell Cell { get; set; }
 
         public Creature(Cell cell, string symbol)
         {
