@@ -35,10 +35,10 @@ namespace Game.Core
         private void GetInput()
         {
             var keyPressed = UI.GetKey();
-           
+
             switch (keyPressed)
             {
-               
+
                 case ConsoleKey.LeftArrow:
                     Move(Direction.West);
                     break;
@@ -51,9 +51,32 @@ namespace Game.Core
                 case ConsoleKey.DownArrow:
                     Move(Direction.South);
                     break;
+                case ConsoleKey.P:
+                    PickUp();
+                    break;
+                case ConsoleKey.I:
+                    Inventory();
+                    break;
+                case ConsoleKey.Q:
+                    Environment.Exit(0);
+                    break;
+
                 default:
                     break;
             }
+        }
+
+        private void Inventory()
+        {
+            foreach (var item in hero.BackBack)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        private void PickUp()
+        {
+            throw new NotImplementedException();
         }
 
         private void Move(Position movement)
@@ -67,21 +90,7 @@ namespace Game.Core
         private void DrawMap()
         {
             UI.Clear();
-            for (int y = 0; y < map.Height; y++)
-            {
-                for (int x = 0; x < map.Width; x++)
-                {
-                    Cell cell = map.GetCell(y, x);
-                    IDrawable drawable = cell;
-
-                    drawable = map.Creatures.CreatureAtExtension(cell) ?? cell;
-
-                    Console.ForegroundColor = drawable?.Color ?? ConsoleColor.White;
-                    Console.Write(drawable?.Symbol);
-                }
-                Console.WriteLine();
-            }
-            Console.ForegroundColor = ConsoleColor.White;
+            UI.Draw(map);
         }
 
         private void Initailize()
@@ -93,6 +102,12 @@ namespace Game.Core
             var heroCell = map.GetCell(0, 0);
             hero = new Hero(heroCell);
             map.Creatures.Add(hero);
+
+
+            //ToDo random positions
+            map.GetCell(4, 6).Items.Add(Item.Coin());
+            map.GetCell(2, 8).Items.Add(Item.Coin());
+            map.GetCell(9, 3).Items.Add(Item.Stone());
         }
     }
 }

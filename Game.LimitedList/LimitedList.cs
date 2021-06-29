@@ -43,9 +43,7 @@ namespace Game.LimitedList
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
     }
 }
