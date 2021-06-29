@@ -13,4 +13,8 @@
     <Folder Include="UI\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Game.LimitedList\Game.LimitedList.csproj" />
+  </ItemGroup>
+
 </Project>

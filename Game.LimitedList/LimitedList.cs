@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Game.LimitedList
 
 {
-    public class LimitedList<T>
+    public class LimitedList<T> : IEnumerable<T>
     {
         private int capacity;
         private List<T> list;
@@ -12,6 +13,7 @@ namespace Game.LimitedList
         public int Capacity => capacity;
 
         public bool IsFull => capacity <= Count;
+        public T this[int index] => list[index];
 
         public int Count => list.Count;
 
@@ -28,6 +30,22 @@ namespace Game.LimitedList
             if (IsFull) return false;
             list.Add(item);
             return true;
+        }
+
+        public bool Remove(T item) => list.Remove(item);
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            foreach (var item in list)
+            {
+                //.....
+                yield return item;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }
