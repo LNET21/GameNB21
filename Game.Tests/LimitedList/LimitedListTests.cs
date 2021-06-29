@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Game.LimitedList;
+using System;
 
 namespace Game.Tests.LimitedList
 {
@@ -45,6 +46,23 @@ namespace Game.Tests.LimitedList
            // Assert.AreEqual(list.Capacity, capacity);
             Assert.IsTrue(actual);
             
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Add_ParameterNull_Should_Throw()
+        {
+            var list = new LimitedList<string>(1);
+
+            try
+            {
+                var trying = list.Add(null);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

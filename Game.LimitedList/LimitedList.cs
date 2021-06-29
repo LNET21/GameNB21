@@ -11,7 +11,9 @@ namespace Game.LimitedList
 
         public int Capacity => capacity;
 
-        public bool IsFull { get; set; }
+        public bool IsFull => capacity <= Count;
+
+        public int Count => list.Count;
 
         public LimitedList(int capacity)
         {
@@ -19,9 +21,13 @@ namespace Game.LimitedList
             list = new List<T>(this.capacity);
         }
 
-        public bool Add(int v)
+        public bool Add(T item)
         {
-            throw new NotImplementedException();
+            if (item is null) throw new ArgumentNullException(nameof(item));
+
+            if (IsFull) return false;
+            list.Add(item);
+            return true;
         }
     }
 }
