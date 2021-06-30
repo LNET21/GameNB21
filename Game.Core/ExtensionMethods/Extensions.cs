@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Game.Core.Entities.Creatures;
+using Game.Core.GameWorld;
+using Game.Core.GameWorld.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Game.Core
+namespace Game.Core.ExtensionMethods
 {
-   public static class Extensions
+    public static class Extensions
     {
         //public static string AddString(this string name, string newString)
         //{

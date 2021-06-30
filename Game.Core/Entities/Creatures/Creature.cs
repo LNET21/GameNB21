@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Game.Core.GameWorld;
+using Game.Core.GameWorld.Interfaces;
+using System;
 
-namespace Game.Core
+namespace Game.Core.Entities.Creatures
 {
     abstract class Creature : IDrawable
     {

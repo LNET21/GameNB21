@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Game.Core.Entities;
+using Game.Core.ExtensionMethods;
+using Game.Core.GameWorld;
+using Game.Core.GameWorld.Interfaces;
+using System;
 using System.Linq;
 
 namespace Game.Core

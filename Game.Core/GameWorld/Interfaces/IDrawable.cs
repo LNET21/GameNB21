@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Core
+namespace Game.Core.GameWorld.Interfaces
 {
     internal interface IDrawable
     {

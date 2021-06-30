@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Game.Core.Entities.Items;
+using Game.Core.GameWorld.Interfaces;
+using System;
 using System.Collections.Generic;
 
-namespace Game.Core
+namespace Game.Core.GameWorld
 {
     internal class Cell : IDrawable
     {

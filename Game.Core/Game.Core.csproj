@@ -6,11 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="GameWorld\" />
     <Folder Include="Services\" />
-    <Folder Include="UI\" />
   </ItemGroup>
 
   <ItemGroup>

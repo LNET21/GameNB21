@@ -1,7 +1,9 @@
-﻿using Game.LimitedList;
+﻿using Game.Core.Entities.Items;
+using Game.Core.GameWorld;
+using Game.LimitedList;
 using System;
 
-namespace Game.Core
+namespace Game.Core.Entities.Creatures
 {
     internal class Hero : Creature
     {

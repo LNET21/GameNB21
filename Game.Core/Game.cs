@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Game.Core.Entities;
+using Game.Core.Entities.Creatures;
+using Game.Core.Entities.Items;
+using Game.Core.GameWorld;
+using System;
 
 namespace Game.Core
 {

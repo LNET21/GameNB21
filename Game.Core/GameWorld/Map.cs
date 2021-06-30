@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Game.Core.Entities.Creatures;
+using Game.Core.GameWorld;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Game.Core
+namespace Game.Core.Entities
 {
     internal class Map
     {

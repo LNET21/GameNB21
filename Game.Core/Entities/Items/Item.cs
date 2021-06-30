@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Game.Core.GameWorld.Interfaces;
+using System;
 
-namespace Game.Core
+namespace Game.Core.Entities.Items
 {
     internal class Item : IDrawable
     {
