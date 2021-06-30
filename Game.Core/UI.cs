@@ -41,9 +41,11 @@ namespace Game.Core
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        internal static void AddMessage(string message)
+        internal static void AddMessage(string message) => messageLog.Add(message);
+
+        public static void PrintLog()
         {
-            Console.WriteLine(message);
+            messageLog.ActionOutputAll(m => Console.WriteLine(m));
         }
     }
 }

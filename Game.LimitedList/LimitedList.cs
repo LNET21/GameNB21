@@ -45,5 +45,10 @@ namespace Game.LimitedList
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        public void ActionOutputAll(Action<T> action)
+        {
+            list.ForEach(m => action?.Invoke(m));
+        }
+
     }
 }

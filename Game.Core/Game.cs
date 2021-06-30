@@ -3,6 +3,7 @@ using Game.Core.Entities.Creatures;
 using Game.Core.Entities.Items;
 using Game.Core.GameWorld;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -57,20 +58,28 @@ namespace Game.Core
                 case ConsoleKey.DownArrow:
                     Move(Direction.South);
                     break;
-                case ConsoleKey.P:
-                    PickUp();
-                    break;
-                case ConsoleKey.I:
-                    Inventory();
-                    break;
+                //case ConsoleKey.P:
+                //    PickUp();
+                //    break;
+                //case ConsoleKey.I:
+                //    Inventory();
+                //    break;
                 case ConsoleKey.Q:
                     Environment.Exit(0);
                     break;
-
-                default:
-                    break;
             }
+
+            var actionMeny = new Dictionary<ConsoleKey, Action>()
+                    {
+                        {ConsoleKey.P, PickUp },
+                        {ConsoleKey.I, Inventory }
+                    };
+
+            if (actionMeny.ContainsKey(keyPressed))
+                actionMeny[keyPressed]?.Invoke();
+
         }
+
 
         private void Inventory()
         {
@@ -108,6 +117,7 @@ namespace Game.Core
         private void Move(Position movement)
         {
             Position newPosition = hero.Cell.Position + movement;
+
             Cell newCell = map.GetCell(newPosition);
 
             if (newCell != null) hero.Cell = newCell;
@@ -117,6 +127,7 @@ namespace Game.Core
         {
             UI.Clear();
             UI.Draw(map);
+            UI.PrintLog();
         }
 
         private void Initailize()
@@ -135,5 +146,6 @@ namespace Game.Core
             map.GetCell(2, 8).Items.Add(Item.Coin());
             map.GetCell(9, 3).Items.Add(Item.Stone());
         }
+
     }
 }
