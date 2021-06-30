@@ -3,6 +3,8 @@ using Game.Core.Entities.Creatures;
 using Game.Core.Entities.Items;
 using Game.Core.GameWorld;
 using System;
+using System.Linq;
+using System.Text;
 
 namespace Game.Core
 {
@@ -72,15 +74,35 @@ namespace Game.Core
 
         private void Inventory()
         {
-            foreach (var item in hero.BackBack)
+            var builder = new StringBuilder();
+            builder.AppendLine("Inventory: ");
+
+            for (int i = 0; i < hero.BackBack.Count; i++)
             {
-                Console.WriteLine(item);
+                builder.AppendLine($"{i + 1}: \t{hero.BackBack[i]}");
             }
+
+            UI.AddMessage(builder.ToString());
         }
 
         private void PickUp()
         {
-            throw new NotImplementedException();
+            if (hero.BackBack.IsFull)
+            {
+                UI.AddMessage("BackPack is full");
+                return;
+            }
+
+            var items = hero.Cell.Items;
+            var item = items.FirstOrDefault();
+
+            if (item is null) return;
+
+            if (hero.BackBack.Add(item))
+            {
+                UI.AddMessage($"Hero picks up {item}");
+                items.Remove(item);
+            }
         }
 
         private void Move(Position movement)

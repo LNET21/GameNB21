@@ -2,6 +2,7 @@
 using Game.Core.ExtensionMethods;
 using Game.Core.GameWorld;
 using Game.Core.GameWorld.Interfaces;
+using Game.LimitedList;
 using System;
 using System.Linq;
 
@@ -9,9 +10,9 @@ namespace Game.Core
 {
     internal class UI
     {
+        private static MessageLog<string> messageLog = new MessageLog<string>(6);
         internal static void Clear()
         {
-            //Console.Clear();
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
         }
@@ -38,6 +39,11 @@ namespace Game.Core
                 Console.WriteLine();
             }
             Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        internal static void AddMessage(string message)
+        {
+            Console.WriteLine(message);
         }
     }
 }
