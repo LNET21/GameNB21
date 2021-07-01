@@ -2,7 +2,7 @@
 
 namespace Game.Core.GameWorld.Interfaces
 {
-    internal interface IDrawable
+    public interface IDrawable
     {
         ConsoleColor Color { get; set; }
         string Symbol { get; }

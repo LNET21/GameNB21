@@ -8,21 +8,21 @@ using System.Linq;
 
 namespace Game.Core
 {
-    internal class UI
+    public class UI
     {
         private static MessageLog<string> messageLog = new MessageLog<string>(6);
-        internal static void Clear()
+        public static void Clear()
         {
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
         }
 
-        internal static ConsoleKey GetKey()
+        public static ConsoleKey GetKey()
         {
             return Console.ReadKey(intercept: true).Key;
         }
 
-        internal static void Draw(Map map)
+        public static void Draw(Map map)
         {
             for (int y = 0; y < map.Height; y++)
             {
@@ -41,17 +41,17 @@ namespace Game.Core
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        internal static void AddMessage(string message) => messageLog.Add(message);
+        public static void AddMessage(string message) => messageLog.Add(message);
 
         public static void PrintLog()
         {
             messageLog.ActionOutputAll(m => Console.WriteLine(m + new string(' ', Console.WindowWidth - m.Length)));
         }
 
-        internal static void PrintStats(string stats)
+        public static void PrintStats(string stats)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(stats);
+            Console.WriteLine(stats + new string(' ', Console.WindowWidth - stats.Length));
             Console.ForegroundColor = ConsoleColor.White;
 
         }

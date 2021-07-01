@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Game.Core.GameWorld
 {
-    internal class Cell : IDrawable
+    public class Cell : IDrawable
     {
         public Position Position { get; set; }
         public string Symbol => ". ";

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Game.Core.Entities
 {
-    internal class Map
+    public class Map
     {
 
         private Cell[,] cells;
@@ -34,7 +34,7 @@ namespace Game.Core.Entities
             }
         }
 
-        internal Cell GetCell(int y, int x)
+        public Cell GetCell(int y, int x)
         {
             //return x < 0 || x >= Width || y < 0 || y >= Height ? null : cells[y, x];
 
@@ -47,17 +47,17 @@ namespace Game.Core.Entities
         }
 
         //See Extensions
-        internal IDrawable CreatureAt(Cell cell)
+        public IDrawable CreatureAt(Cell cell)
         {
             return Creatures.FirstOrDefault(creature => creature.Cell == cell);
         }
 
-        internal Cell GetCell(Position newPosition)
+        public Cell GetCell(Position newPosition)
         {
             return GetCell(newPosition.Y, newPosition.X);
         }
 
-        internal void Place(Creature creature)
+        public void Place(Creature creature)
         {
             if (Creatures.Where(c => c.Cell == creature?.Cell).Any())
                 creature = null;

@@ -4,7 +4,7 @@ using System;
 
 namespace Game.Core.Entities.Creatures
 {
-    abstract class Creature : IDrawable
+    public abstract class Creature : IDrawable
     {
         private int health;
         private ConsoleColor color;
