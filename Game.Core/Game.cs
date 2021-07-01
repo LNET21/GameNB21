@@ -14,6 +14,7 @@ namespace Game.Core
     {
         private Map map;
         private Hero hero;
+        private bool gameInProgress;
 
         internal void Run()
         {
@@ -23,7 +24,7 @@ namespace Game.Core
 
         private void Play()
         {
-            bool gameInProgress = true;
+            gameInProgress = true;
             do
             {
                 //DrawMap
@@ -119,8 +120,15 @@ namespace Game.Core
 
             var items = hero.Cell.Items;
             var item = items.FirstOrDefault();
-
             if (item is null) return;
+
+            if(item is IUsable usable)
+            {
+                usable.Use(hero);
+                hero.Cell.Items.Remove(item);
+                UI.AddMessage($"Hero use the {item}");
+                return;
+            }
 
             if (hero.BackBack.Add(item))
             {
@@ -132,17 +140,26 @@ namespace Game.Core
         private void Move(Position movement)
         {
             Position newPosition = hero.Cell.Position + movement;
-
             Cell newCell = map.GetCell(newPosition);
 
-            if (newCell != null) hero.Cell = newCell;
+            var opponent = map.CreatureAt(newCell) as Creature;
+            if (opponent != null) hero.Attack(opponent);
+
+            gameInProgress = !hero.IsDead;
+
+            if (newCell != null)
+            {
+                hero.Cell = newCell;
+                if (newCell.Items.Any())
+                    UI.AddMessage("You see " + string.Join(", ", newCell.Items.Select(i => i.ToString())));
+            }
         }
 
         private void DrawMap()
         {
             UI.Clear();
             UI.Draw(map);
-            UI.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Count - 1}");
+            UI.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Where(c => !c.IsDead).Count() - 1}");
             UI.PrintLog();
         }
 
@@ -162,6 +179,9 @@ namespace Game.Core
             map.GetCell(RH(r), RW(r)).Items.Add(Item.Coin());
             map.GetCell(RH(r), RW(r)).Items.Add(Item.Coin());
             map.GetCell(RH(r), RW(r)).Items.Add(Item.Stone());
+            map.GetCell(RH(r), RW(r)).Items.Add(Potion.HealthPortion());
+            map.GetCell(RH(r), RW(r)).Items.Add(Potion.HealthPortion());
+            map.GetCell(RH(r), RW(r)).Items.Add(Potion.HealthPortion());
 
             map.Place(new Orc(map.GetCell(RH(r), RW(r)), 120));
             map.Place(new Orc(map.GetCell(RH(r), RW(r)), 120));
