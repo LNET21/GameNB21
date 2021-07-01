@@ -3,6 +3,7 @@ using Game.Core.GameWorld;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Game.Core.Entities
 {
@@ -46,6 +47,14 @@ namespace Game.Core.Entities
         internal Cell GetCell(Position newPosition)
         {
             return GetCell(newPosition.Y, newPosition.X);
+        }
+
+        internal void Place(Creature creature)
+        {
+            if (Creatures.Where(c => c.Cell == creature?.Cell).Count() >= 1)
+                creature = null;
+            else
+                Creatures.Add(creature);
         }
     }
 }

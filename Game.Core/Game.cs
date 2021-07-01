@@ -72,7 +72,8 @@ namespace Game.Core
             var actionMeny = new Dictionary<ConsoleKey, Action>()
                     {
                         {ConsoleKey.P, PickUp },
-                        {ConsoleKey.I, Inventory }
+                        {ConsoleKey.I, Inventory },
+                        {ConsoleKey.D, Drop }
                     };
 
             if (actionMeny.ContainsKey(keyPressed))
@@ -80,6 +81,19 @@ namespace Game.Core
 
         }
 
+        private void Drop()
+        {
+            var item = hero.BackBack.FirstOrDefault();
+
+            if (hero.BackBack.Remove(item))
+            {
+                //map.GetCell(hero.Cell.Position).Items.Add(item);
+                hero.Cell.Items.Add(item);
+                UI.AddMessage($"Hero dropped the {item}");
+            }
+            else
+                UI.AddMessage("Backpack is empty");
+        }
 
         private void Inventory()
         {
@@ -127,6 +141,7 @@ namespace Game.Core
         {
             UI.Clear();
             UI.Draw(map);
+            UI.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Count - 1}");
             UI.PrintLog();
         }
 
@@ -134,18 +149,37 @@ namespace Game.Core
         {
             //Todo: Read from config
             //Todo: Random placement
+
             map = new Map(width: 10, height: 10);
             //ToDo check for null
             var heroCell = map.GetCell(0, 0);
             hero = new Hero(heroCell);
             map.Creatures.Add(hero);
 
+            var r = new Random();
+           
+            map.GetCell(RH(r), RW(r)).Items.Add(Item.Coin());
+            map.GetCell(RH(r), RW(r)).Items.Add(Item.Coin());
+            map.GetCell(RH(r), RW(r)).Items.Add(Item.Stone());
 
-            //ToDo random positions
-            map.GetCell(4, 6).Items.Add(Item.Coin());
-            map.GetCell(2, 8).Items.Add(Item.Coin());
-            map.GetCell(9, 3).Items.Add(Item.Stone());
+            map.Place(new Orc(map.GetCell(RH(r), RW(r)), 120));
+            map.Place(new Orc(map.GetCell(RH(r), RW(r)), 120));
+            map.Place(new Troll(map.GetCell(RH(r), RW(r)), 160));
+            map.Place(new Troll(map.GetCell(RH(r), RW(r)), 160));
+            map.Place(new Goblin(map.GetCell(RH(r), RW(r)), 200));
+            map.Place(new Goblin(map.GetCell(RH(r), RW(r)), 200));
+            
+
         }
 
+        private int RW(Random r)
+        {
+            return r.Next(0, map.Width);
+        }
+
+        private int RH(Random r)
+        {
+            return r.Next(0, map.Height);
+        }
     }
 }

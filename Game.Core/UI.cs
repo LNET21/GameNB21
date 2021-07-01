@@ -45,7 +45,15 @@ namespace Game.Core
 
         public static void PrintLog()
         {
-            messageLog.ActionOutputAll(m => Console.WriteLine(m));
+            messageLog.ActionOutputAll(m => Console.WriteLine(m + new string(' ', Console.WindowWidth - m.Length)));
+        }
+
+        internal static void PrintStats(string stats)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(stats);
+            Console.ForegroundColor = ConsoleColor.White;
+
         }
     }
 }

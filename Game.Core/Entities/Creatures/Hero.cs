@@ -8,7 +8,7 @@ namespace Game.Core.Entities.Creatures
     internal class Hero : Creature
     {
         public LimitedList<Item> BackBack { get; }
-        public Hero(Cell cell) : base(cell, "H ")
+        public Hero(Cell cell) : base(cell, "H ", 100)
         {
             Color = ConsoleColor.Yellow;
             BackBack = new LimitedList<Item>(3); //ToDo read from config
