@@ -1,5 +1,7 @@
 ﻿using Game.Core.Entities.Creatures;
+using Game.Core.Entities.Items;
 using Game.Core.GameWorld;
+using Game.Core.GameWorld.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -44,6 +46,12 @@ namespace Game.Core.Entities
             return cells[y, x];
         }
 
+        //See Extensions
+        internal IDrawable CreatureAt(Cell cell)
+        {
+            return Creatures.FirstOrDefault(creature => creature.Cell == cell);
+        }
+
         internal Cell GetCell(Position newPosition)
         {
             return GetCell(newPosition.Y, newPosition.X);
@@ -51,7 +59,7 @@ namespace Game.Core.Entities
 
         internal void Place(Creature creature)
         {
-            if (Creatures.Where(c => c.Cell == creature?.Cell).Count() >= 1)
+            if (Creatures.Where(c => c.Cell == creature?.Cell).Any())
                 creature = null;
             else
                 Creatures.Add(creature);

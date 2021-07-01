@@ -4,6 +4,7 @@ using Game.Core.Entities.Items;
 using Game.Core.GameWorld;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -168,7 +169,13 @@ namespace Game.Core
             map.Place(new Troll(map.GetCell(RH(r), RW(r)), 160));
             map.Place(new Goblin(map.GetCell(RH(r), RW(r)), 200));
             map.Place(new Goblin(map.GetCell(RH(r), RW(r)), 200));
-            
+
+            map.Creatures.ForEach(c =>
+            {
+                c.AddMessage = UI.AddMessage;
+                c.AddMessage += m => Debug.WriteLine(m);
+            });
+       
 
         }
 

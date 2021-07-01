@@ -30,7 +30,7 @@ namespace Game.Core
                 {
                     Cell cell = map.GetCell(y, x);
 
-                    IDrawable drawable = (map.Creatures.CreatureAtExtension(cell) ?? cell.Items.FirstOrDefault()) ??
+                    IDrawable drawable = (map.CreatureAt(cell) ?? cell.Items.FirstOrDefault()) ??
                       cell;
 
                     Console.ForegroundColor = drawable?.Color ?? ConsoleColor.White;
