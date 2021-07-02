@@ -10,12 +10,13 @@ namespace Game.Core.UI
 {
     public class ConsoleUI : IUI
     {
-        private MessageLog<string> messageLog = new MessageLog<string>(6);
+        private ILimitedList<string> messageLog;
         private readonly IMap map;
 
-        public ConsoleUI(IMap map)
+        public ConsoleUI(IMap map, ILimitedList<string> messageLog)
         {
             this.map = map;
+            this.messageLog = messageLog;
         }
 
         public void Clear()

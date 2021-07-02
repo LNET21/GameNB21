@@ -1,7 +1,9 @@
 ﻿using Game.Core.Entities.Creatures;
 using Game.Core.GameWorld;
 using Game.Core.GameWorld.Interfaces;
+using Game.Core.UI;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 
 namespace Game.Core.ExtensionMethods
@@ -36,6 +38,21 @@ namespace Game.Core.ExtensionMethods
         {
             var section = configuration.GetSection("game:mapsettings");
             return int.TryParse(section[name], out int result) ? result : 0;
+        }
+
+        internal static void GetUI(this ServiceCollection services, IConfiguration configuration)
+        {
+            var ui = configuration.GetSection("game:ui").Value;
+
+            switch (ui)
+            {
+                case "console":
+                    services.AddSingleton<IUI, ConsoleUI>();
+                    break;
+                //More Options
+                default:
+                    break;
+            }
         }
     }
 }

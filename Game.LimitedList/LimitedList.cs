@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Game.LimitedList
 
 {
-    public class LimitedList<T> : IEnumerable<T>
+    public class LimitedList<T> : ILimitedList<T>
     {
         private int capacity;
         protected List<T> list;

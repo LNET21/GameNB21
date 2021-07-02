@@ -3,6 +3,7 @@ using Game.Core.ExtensionMethods;
 using Game.Core.GameWorld;
 using Game.Core.GameWorld.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +18,7 @@ namespace Game.Core.Entities
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public ConsoleMap(IConfiguration config)
+        public ConsoleMap(IConfiguration config, Mapsettings mapsettings, IOptions<Mapsettings> options)
         {
             Width = config.GetMapSizeFor("x");
             Height = config.GetMapSizeFor("y");
