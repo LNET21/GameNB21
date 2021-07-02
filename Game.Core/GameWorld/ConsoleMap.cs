@@ -1,6 +1,7 @@
 ﻿using Game.Core.Entities.Creatures;
 using Game.Core.GameWorld;
 using Game.Core.GameWorld.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,7 +16,7 @@ namespace Game.Core.Entities
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public ConsoleMap(int width, int height)
+        public ConsoleMap(IConfiguration config, int width, int height)
         {
             Width = width;
             Height = height;

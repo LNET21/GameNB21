@@ -1,9 +1,11 @@
 ﻿using Game.Core.Entities;
 using Game.Core.Entities.Creatures;
 using Game.Core.Entities.Items;
+using Game.Core.ExtensionMethods;
 using Game.Core.GameWorld;
 using Game.Core.GameWorld.Interfaces;
 using Game.Core.UI;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,6 +20,12 @@ namespace Game.Core
         private Hero hero;
         private bool gameInProgress;
         private IUI ui = new ConsoleUI();
+        //private IConfiguration config;
+
+        public Game(IUI ui, IMap map)
+        {
+           // this.config = config;
+        }
 
         internal void Run()
         {
@@ -168,10 +176,10 @@ namespace Game.Core
 
         private void Initailize()
         {
-            //Todo: Read from config
-            //Todo: Random placement
+            //var width = config.GetMapSizeFor("x");
+            //var height = config.GetMapSizeFor("y");
 
-            map = new ConsoleMap(width: 10, height: 10);
+            //map = new ConsoleMap(width ,height);
             //ToDo check for null
             var heroCell = map.GetCell(0, 0);
             hero = new Hero(heroCell);

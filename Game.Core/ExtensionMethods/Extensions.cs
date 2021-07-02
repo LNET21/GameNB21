@@ -1,6 +1,7 @@
 ﻿using Game.Core.Entities.Creatures;
 using Game.Core.GameWorld;
 using Game.Core.GameWorld.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
 namespace Game.Core.ExtensionMethods
@@ -29,6 +30,12 @@ namespace Game.Core.ExtensionMethods
                 }
             }
             return result;
+        }
+
+        internal static int GetMapSizeFor(this IConfiguration configuration, string name)
+        {
+            var section = configuration.GetSection("game:mapsettings");
+            return int.TryParse(section[name], out int result) ? result : 0;
         }
     }
 }
