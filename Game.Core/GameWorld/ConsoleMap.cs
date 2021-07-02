@@ -1,4 +1,5 @@
 ﻿using Game.Core.Entities.Creatures;
+using Game.Core.ExtensionMethods;
 using Game.Core.GameWorld;
 using Game.Core.GameWorld.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -16,16 +17,16 @@ namespace Game.Core.Entities
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public ConsoleMap(IConfiguration config, int width, int height)
+        public ConsoleMap(IConfiguration config)
         {
-            Width = width;
-            Height = height;
+            Width = config.GetMapSizeFor("x");
+            Height = config.GetMapSizeFor("y");
 
-            cells = new Cell[height, width];
+            cells = new Cell[Height, Width];
 
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < Height; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < Width; x++)
                 {
                     cells[y, x] = new Cell(new Position(y, x));
                 }

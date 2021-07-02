@@ -7,7 +7,7 @@ namespace Game.Core.UI
     {
         void AddMessage(string message);
         void Clear();
-        void Draw(IMap map);
+        void Draw();
         ConsoleKey GetKey();
         void PrintStats(string stats);
         void PrintLog();

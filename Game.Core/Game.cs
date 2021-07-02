@@ -19,12 +19,14 @@ namespace Game.Core
         private IMap map;
         private Hero hero;
         private bool gameInProgress;
-        private IUI ui = new ConsoleUI();
+        private IUI ui;
         //private IConfiguration config;
 
         public Game(IUI ui, IMap map)
         {
-           // this.config = config;
+            this.ui = ui;
+            this.map = map;
+            // this.config = config;
         }
 
         internal void Run()
@@ -169,7 +171,7 @@ namespace Game.Core
         private void DrawMap()
         {
             ui.Clear();
-            ui.Draw(map);
+            ui.Draw();
             ui.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Where(c => !c.IsDead).Count() - 1}");
             ui.PrintLog();
         }
