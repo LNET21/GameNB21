@@ -2,6 +2,8 @@
 using Game.Core.Entities.Creatures;
 using Game.Core.Entities.Items;
 using Game.Core.GameWorld;
+using Game.Core.GameWorld.Interfaces;
+using Game.Core.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,9 +14,10 @@ namespace Game.Core
 {
     internal class Game
     {
-        private Map map;
+        private IMap map;
         private Hero hero;
         private bool gameInProgress;
+        private IUI ui = new ConsoleUI();
 
         internal void Run()
         {
@@ -43,7 +46,7 @@ namespace Game.Core
 
         private void GetInput()
         {
-            var keyPressed = UI.GetKey();
+            var keyPressed = ui.GetKey();
 
             switch (keyPressed)
             {
@@ -91,10 +94,10 @@ namespace Game.Core
             {
                 //map.GetCell(hero.Cell.Position).Items.Add(item);
                 hero.Cell.Items.Add(item);
-                UI.AddMessage($"Hero dropped the {item}");
+                ui.AddMessage($"Hero dropped the {item}");
             }
             else
-                UI.AddMessage("Backpack is empty");
+                ui.AddMessage("Backpack is empty");
         }
 
         private void Inventory()
@@ -107,14 +110,14 @@ namespace Game.Core
                 builder.AppendLine($"{i + 1}: \t{hero.BackBack[i]}");
             }
 
-            UI.AddMessage(builder.ToString());
+            ui.AddMessage(builder.ToString());
         }
 
         private void PickUp()
         {
             if (hero.BackBack.IsFull)
             {
-                UI.AddMessage("BackPack is full");
+                ui.AddMessage("BackPack is full");
                 return;
             }
 
@@ -126,13 +129,13 @@ namespace Game.Core
             {
                 usable.Use(hero);
                 hero.Cell.Items.Remove(item);
-                UI.AddMessage($"Hero use the {item}");
+                ui.AddMessage($"Hero use the {item}");
                 return;
             }
 
             if (hero.BackBack.Add(item))
             {
-                UI.AddMessage($"Hero picks up {item}");
+                ui.AddMessage($"Hero picks up {item}");
                 items.Remove(item);
             }
         }
@@ -151,16 +154,16 @@ namespace Game.Core
             {
                 hero.Cell = newCell;
                 if (newCell.Items.Any())
-                    UI.AddMessage("You see " + string.Join(", ", newCell.Items.Select(i => i.ToString())));
+                    ui.AddMessage("You see " + string.Join(", ", newCell.Items.Select(i => i.ToString())));
             }
         }
 
         private void DrawMap()
         {
-            UI.Clear();
-            UI.Draw(map);
-            UI.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Where(c => !c.IsDead).Count() - 1}");
-            UI.PrintLog();
+            ui.Clear();
+            ui.Draw(map);
+            ui.PrintStats($"Health: {hero.Health}, Enemys: {map.Creatures.Where(c => !c.IsDead).Count() - 1}");
+            ui.PrintLog();
         }
 
         private void Initailize()
@@ -168,7 +171,7 @@ namespace Game.Core
             //Todo: Read from config
             //Todo: Random placement
 
-            map = new Map(width: 10, height: 10);
+            map = new ConsoleMap(width: 10, height: 10);
             //ToDo check for null
             var heroCell = map.GetCell(0, 0);
             hero = new Hero(heroCell);
@@ -192,7 +195,7 @@ namespace Game.Core
 
             map.Creatures.ForEach(c =>
             {
-                c.AddMessage = UI.AddMessage;
+                c.AddMessage = ui.AddMessage;
                 c.AddMessage += m => Debug.WriteLine(m);
             });
        

@@ -1,15 +1,12 @@
 ﻿using Game.Core.Entities.Creatures;
-using Game.Core.Entities.Items;
 using Game.Core.GameWorld;
 using Game.Core.GameWorld.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Game.Core.Entities
 {
-    public class Map
+    public class ConsoleMap : IMap
     {
 
         private Cell[,] cells;
@@ -18,7 +15,7 @@ namespace Game.Core.Entities
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public Map(int width, int height)
+        public ConsoleMap(int width, int height)
         {
             Width = width;
             Height = height;
@@ -29,7 +26,7 @@ namespace Game.Core.Entities
             {
                 for (int x = 0; x < width; x++)
                 {
-                    cells[y, x] = new Cell(new Position(y,x));
+                    cells[y, x] = new Cell(new Position(y, x));
                 }
             }
         }

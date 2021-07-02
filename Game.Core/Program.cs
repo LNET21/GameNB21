@@ -7,24 +7,6 @@ namespace Game.Core
     {
         static void Main(string[] args)
         {
-            var list = new LimitedList<int>(2);
-
-            foreach (var item in list)
-            {
-
-            }
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                Console.WriteLine(list[i]);
-            }
-
-            var name = "Kalle";
-
-            foreach (var item in name)
-            {
-                Console.WriteLine(item);
-            }
 
             Game game = new Game();
             game.Run();
