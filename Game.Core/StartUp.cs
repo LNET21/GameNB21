@@ -3,6 +3,7 @@ using Game.Core.Entities.Items;
 using Game.Core.ExtensionMethods;
 using Game.Core.GameWorld;
 using Game.Core.GameWorld.Interfaces;
+using Game.Core.Services;
 using Game.Core.UI;
 using Game.LimitedList;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +29,7 @@ namespace Game.Core
         private void ConfigureServices(ServiceCollection services)
         {
             services.AddSingleton<Game>();
+            services.AddSingleton<IMapService, MapService>();
             services.AddSingleton(configuration);
             services.AddSingleton<IMap, ConsoleMap>();
             services.GetUI(configuration);

@@ -2,6 +2,7 @@
 using Game.Core.ExtensionMethods;
 using Game.Core.GameWorld;
 using Game.Core.GameWorld.Interfaces;
+using Game.Core.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
@@ -18,13 +19,15 @@ namespace Game.Core.Entities
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public ConsoleMap(/*IConfiguration config,*/ Mapsettings mapsettings /*IOptions<Mapsettings> options*/)
+        public ConsoleMap(/*IConfiguration config,*//* Mapsettings mapsettings*/ /*IOptions<Mapsettings> options*/ IMapService mapService)
         {
             //Width = config.GetMapSizeFor("x");
             //Height = config.GetMapSizeFor("y");
 
             //Width = options.Value.X;
             //Height = options.Value.Y;
+
+            (Width, Height) = mapService.GetMap();
 
             cells = new Cell[Height, Width];
 

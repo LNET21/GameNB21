@@ -1,7 +1,9 @@
 ﻿using Game.Core.Entities;
 using Game.Core.GameWorld;
+using Game.Core.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +18,32 @@ namespace Game.LimitedList.Map
         [TestMethod]
         public void MapConstructor_GetCorrectWidth_IOptions()
         {
+            //const int expected = 10;
+            //var mapSettings = new Mapsettings { X = expected, Y = expected };
+
+            //IOptions<Mapsettings> options = Options.Create(mapSettings);
+
+            //var map = new ConsoleMap(options);
+
+            //var actual = map.Width;
+
+            //Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void MapConstructor_GetCorrectWidth_MapService()
+        {
             const int expected = 10;
-            var mapSettings = new Mapsettings { X = expected, Y = expected };
+            var mapServiceMock = new Mock<IMapService>();
 
-            IOptions<Mapsettings> options = Options.Create(mapSettings);
+            mapServiceMock.Setup(m => m.GetMap()).Returns((expected, expected));
 
-            var map = new ConsoleMap(options);
+            var map = new ConsoleMap(mapServiceMock.Object);
 
             var actual = map.Width;
 
             Assert.AreEqual(expected, actual);
+
         }
     }
 }
