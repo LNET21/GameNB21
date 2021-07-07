@@ -18,13 +18,13 @@ namespace Game.Core.Entities
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public ConsoleMap(/*IConfiguration config, Mapsettings mapsettings,*/ IOptions<Mapsettings> options)
+        public ConsoleMap(/*IConfiguration config,*/ Mapsettings mapsettings /*IOptions<Mapsettings> options*/)
         {
             //Width = config.GetMapSizeFor("x");
             //Height = config.GetMapSizeFor("y");
 
-            Width = options.Value.X;
-            Height = options.Value.Y;
+            //Width = options.Value.X;
+            //Height = options.Value.Y;
 
             cells = new Cell[Height, Width];
 
