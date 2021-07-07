@@ -19,15 +19,15 @@ namespace Game.Core.Entities
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public ConsoleMap(/*IConfiguration config,*//* Mapsettings mapsettings*/ /*IOptions<Mapsettings> options*/ IMapService mapService)
+        public ConsoleMap(IConfiguration config/* Mapsettings mapsettings*/ /*IOptions<Mapsettings> options*/ /*IMapService mapService*/)
         {
-            //Width = config.GetMapSizeFor("x");
-            //Height = config.GetMapSizeFor("y");
+            Width = config.GetMapSizeFor("x");
+            Height = config.GetMapSizeFor("y");
 
             //Width = options.Value.X;
             //Height = options.Value.Y;
 
-            (Width, Height) = mapService.GetMap();
+            //(Width, Height) = mapService.GetMap();
 
             cells = new Cell[Height, Width];
 

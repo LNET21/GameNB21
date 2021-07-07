@@ -34,11 +34,7 @@ namespace Game.Core.ExtensionMethods
             return result;
         }
 
-        internal static int GetMapSizeFor(this IConfiguration configuration, string name)
-        {
-            var section = configuration.GetSection("game:mapsettings");
-            return int.TryParse(section[name], out int result) ? result : 0;
-        }
+     
 
         internal static void GetUI(this ServiceCollection services, IConfiguration configuration)
         {
