@@ -9,6 +9,7 @@ using Game.LimitedList;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics;
 
 namespace Game.Core
 {
@@ -18,7 +19,6 @@ namespace Game.Core
 
         internal void SetUp()
         {
-             configuration = GetConfig();
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
 
@@ -26,8 +26,10 @@ namespace Game.Core
             serviceProvider.GetRequiredService<Game>().Run();
         }
 
-        private void ConfigureServices(ServiceCollection services)
+        public void ConfigureServices(ServiceCollection services)
         {
+            configuration = GetConfig();
+
             services.AddSingleton<Game>();
             services.AddSingleton<IMapService, MapService>();
             services.AddSingleton(configuration);
